@@ -1,0 +1,26 @@
+
+
+
+
+
+
+
+
+
+
+
+int
+
+most commonly used datatype is int which is used to store integer values. It is a 4 byte data type.
+size: 4 bytes  (32 bits)
+range: -2^31 to 2^31-1 (-2147483648 to 2147483647)
+int x=2147483647; //valid
+int y=2147483648; //invalid Compiler error: integer number too large
+int z=2147483648l; //invalid Compiler error: possible loss of precision found: long required: int
+int a=2147483648L; //valid
+
+int x=true; //invalid Compiler error: incompatible types: boolean cannot be converted to int
+int y=1.0; //invalid Compiler error: incompatible types: possible lossy conversion from double to int
+int z='a'; //valid why: ASCII value of 'a' is 97
+int a=1.0f; //invalid Compiler error: incompatible types: possible lossy conversion from float to int
+
