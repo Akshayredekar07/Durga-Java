@@ -1,26 +1,146 @@
 
 
 
+char literal:
+
+we can specify char literal as single character in signle quote
+
+char ch = 'a';//valid
+char ch = a'//invalid Compile time error 
+char ch = "a"//invalid CE: incompatible type required: char , found:int
+
+char ch= 'ab';// CE: unclosed char literal 
+
+
+we can specify char literal as intgral literal which represents unicode value of the character and that integral literal either in decmal octal or hexadecimal form
+
+but allowed range is 0 to 65535
+
+char ch = 97;
+sout(ch)
+
+char ch = 0xFace;
+sout(ch)
+
+char ch = 65535;
+
+char ch = 65536; //CE: possible loss of precision found:int required:char
 
 
 
 
+we can represent char literal as in unicode representation which is nothing but 
+'\uxxxx' flour digit hexadecimal representation
 
 
+char ch = '\u00061'
+sout(ch)
+
+Escape character:
+every escape character is a vaild char literal 
+
+char ch = '\n';
+char ch = '\t';
+char ch = '\m'; \\ CE: illegal Escape character
+
+Here’s the extracted text from the image:
+
+---
+
+**Escape Character** | **Description**  
+--- | ---  
+`\n` | New Line  
+`\t` | Horizontal Tab  
+`\r` | Carriage Return  
+`\b` | Back Space  
+`\f` | Form Feed  
+`\'` | Single Quote  
+`\"` | Double Quote  
+`\\` | Backslash  
+
+**Examples:**
+```javascript
+Sop( "This is \ Symbol" );
+Sop( "This is \ " Symbol" );
+Sop( "This is \ Character" );
+```
+
+which of the following 
 
 
-int
+String literal:
 
-most commonly used datatype is int which is used to store integer values. It is a 4 byte data type.
-size: 4 bytes  (32 bits)
-range: -2^31 to 2^31-1 (-2147483648 to 2147483647)
-int x=2147483647; //valid
-int y=2147483648; //invalid Compiler error: integer number too large
-int z=2147483648l; //invalid Compiler error: possible loss of precision found: long required: int
-int a=2147483648L; //valid
+any sequence of chanracters witih dubble questoes is treasted as string literal
+string s = "durga";
 
-int x=true; //invalid Compiler error: incompatible types: boolean cannot be converted to int
-int y=1.0; //invalid Compiler error: incompatible types: possible lossy conversion from double to int
-int z='a'; //valid why: ASCII value of 'a' is 97
-int a=1.0f; //invalid Compiler error: incompatible types: possible lossy conversion from float to int
+java 1.7 enhacement w.r.t literals
 
+1. binanry literals:
+
+int x = 0 ,1
+
+int b = 0B0111
+
+for integeral datatype we can sepcify literal values in the following ways 
+decimal, octal, hexadecimal we can sepficly even in binary form also
+allowd digits are 0 and 1 
+literal values shoud be prefiexed with 0b or 0B 
+Examples
+int x = 0B111;
+int y = 0b011;
+
+uses of underscore Symbol in numeric literl
+from 1.7 v we can use _ between numeric literal 
+
+e.g :
+double d = 123456.789;
+double d = 1_23_456.7_8_9
+double d = 123_456.7_8_9
+
+at the time of compilatino this _ symobls will be removd automatially hence after compilation the above lins becomes 
+double d = 123456.789;
+
+we can use more thean one _ symbola als in digits
+
+e.g: 
+
+we can _ symbol only in digits if we are suing anywere in the compiler gvie erroer
+double d = -1_23_456.7_8_9j;  
+double d = 1_2_3_4_5_6_7_8_9j;  
+double d = 1_23_456.7_8_9;  
+
+
+Here’s the extracted text from the image:
+
+---
+
+```
+byte        1B
+short       2B
+          ↓
+int         4B
+long       8B
+          ↓
+float      4B
+double    8B
+
+         Floating-point
+         
+char        1B
+          26
+         
+          Integer
+```
+
+```plaintext
+float f = 10.8;
+Sop(f);  // Outputs: 10.0
+```
+
+--- 
+
+*Note: B denotes bytes for the data types.*
+
+8 byte long value we can assiggn to 4 byte float variable becase both are following differnt memroy represent interanally
+float f = 10l;
+sout(f); //10.0
