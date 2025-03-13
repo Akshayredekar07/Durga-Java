@@ -455,10 +455,6 @@ Determine which of the following character declarations are **valid**.
 | `char ch = '\iface';`   | **Invalid**: `\i` is not a valid escape sequence. |
 ---
 
-
-Here is your properly formatted Markdown document:  
-
-```md
 ## **String Literals**
 
 A **string literal** is any sequence of characters enclosed in double quotes.  
