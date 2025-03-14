@@ -501,3 +501,606 @@ x[2.5] = 344; // Invalid - Compile-time Error: Possible loss of precision
 `ArrayIndexOutOfBoundsException`.
 
 ---
+### **memory representation**
+
+```java
+public class ArrayMemoryRepresentation {
+    public static void main(String[] args) {
+        int[][] x = { {10, 20}, {30, 40, 50} };
+
+        // Accessing elements
+        System.out.println(x[0][0]); // 10
+        System.out.println(x[0][1]); // 20
+        System.out.println(x[1][0]); // 30
+        System.out.println(x[1][1]); // 40
+        System.out.println(x[1][2]); // 50
+    }
+}
+```
+### **Memory Representation Diagram:**
+
+```java
+x ----→  [  *  |  *  ]  
+            |     |
+            |     └───> [ 30 | 40 | 50 ] 
+            |
+            └───> [ 10 | 20 ] 
+```
+---
+
+### **1. Declaring, Creating, and Initializing Arrays**
+
+#### **Separate Declaration and Initialization**
+```java
+int[] x;         // Declare an array reference
+x = new int[3];  // Create an array with size 3
+
+// Assign values
+x[0] = 2;
+x[1] = 3;
+x[2] = 4;
+```
+
+#### **Single-Line Initialization (Shortcut Representation)**
+```java
+int[] x = {10, 20, 30};      // Integer array
+char[] r = {'a', 'e', 'i', 'o', 'u'};  // Character array
+String[] st = {"hi", "durga", "you", "are", "great"}; // String array
+```
+
+#### **Incorrect Declaration (Compile-Time Error)**
+```java
+int[] x;
+x = {10, 20, 30}; // Compile-time error: Illegal start of expression
+```
+**Important Note:**  
+- When assigning values separately, the `new` keyword must be used:  
+  ```java
+  x = new int[]{10, 20, 30};  // Correct
+  ```
+
+---
+
+### **2. Multidimensional Arrays**
+
+#### **2D Array Example**
+```java
+int[][] x = { {10, 20}, {30, 40, 50} };
+```
+
+#### **3D Array Example**
+```java
+int[][][] x = {  
+    { {10, 20, 30}, {40, 50, 60} },  
+    { {70, 80, 90}, {100, 110, 120} }  
+};
+
+// Accessing elements
+System.out.println(x[0][1][2]); // Output: 60
+System.out.println(x[1][1][1]); // Output: 110
+```
+
+#### **Invalid Index Access (Runtime Exception)**
+```java
+System.out.println(x[1][2][0]); // ArrayIndexOutOfBoundsException
+System.out.println(x[0][2][0]); // ArrayIndexOutOfBoundsException
+```
+
+**Important Note:**  
+- Accessing an index that is out of range in an array will result in `ArrayIndexOutOfBoundsException`.
+
+---
+
+### **3. Memory Representation of Arrays**
+#### **1D Array**
+```
+x → [ 10 | 20 | 30 ]  // Integer array with three elements
+```
+
+#### **2D Array**
+```
+x →  [ *  | *  ]   // Reference to two sub-arrays
+       |      |
+       |      └───> [ 30 | 40 | 50 ]  // Second sub-array
+       |
+       └───> [ 10 | 20 ]   // First sub-array
+```
+
+#### **3D Array**
+```
+x →  [ *  | *  ]  
+       |      |
+       |      └───> [ *  | *  ]  
+       |              |      |
+       |              |      └───> [100 | 110 | 120]
+       |              └───> [ 70 | 80 | 90 ]
+       └───> [ *  | *  ]  
+              |      |
+              |      └───> [ 40 | 50 | 60 ]
+              └───> [ 10 | 20 | 30 ]
+```
+
+---
+
+### **4. `length` vs. `length()`**
+#### **`length` (for Arrays)**
+- `length` is a final variable applicable **only for arrays**.
+- Represents the **size of the array**.
+
+```java
+int[] x = new int[6];
+System.out.println(x.length); // Output: 6
+System.out.println(x.length()); // Compile-time error: Cannot find symbol
+```
+
+#### **`length()` (for Strings)**
+- `length()` is a final method applicable **only for String objects**.
+- Returns the **number of characters** in the string.
+
+```java
+String s = "durga";
+System.out.println(s.length()); // Output: 5
+System.out.println(s.length); // Compile-time error: Cannot find symbol
+```
+
+**Important Notes:**  
+- `length` is used for arrays.  
+- `length()` is used for strings.
+
+---
+
+### **5. Interview Question: `String.length` vs. `Array.length`**
+#### **Question: What is the output of the following code?**
+```java
+String[] s = {"A", "AA", "AAA"};
+
+System.out.println(s.length); // Outputs: 3
+System.out.println(s.lengthc); // Compile-time error
+System.out.println(s[0].length); // Compile-time error
+System.out.println(s[1].length()); // Outputs: 2
+```
+
+#### **Explanation**
+1. `s.length` → Returns the number of elements in the array → `3`
+2. `s.lengthc` → Error: `lengthc` does not exist.
+3. `s[0].length` → Error: Strings do not have a `length` variable.
+4. `s[1].length()` → Returns length of `"AA"` → `2`
+
+**Important Notes:**  
+- `length` is used for getting the number of elements in an array.  
+- `length()` is used for getting the number of characters in a string.  
+- Accessing `s[0].length` (where `s[0]` is a string) is incorrect because `length` is not a valid variable for `String`.  
+- Correct usage for a string is `s[0].length()`.
+
+
+---
+
+### **Multidimensional Arrays and `length` Variable**  
+
+In **multidimensional arrays**, the `length` variable represents **only the size of the base array** (i.e., the number of rows), not the total number of elements across all rows.
+
+#### **Example: Understanding `length` in a 2D Array**  
+```java
+int[][] x = new int[6][3];  // 6 rows, each with 3 columns  
+
+System.out.println(x.length);     // Output: 6 (Number of rows)  
+System.out.println(x[0].length);  // Output: 3 (Number of columns in the first row)  
+```
+- `x.length` → Gives the number of rows (`6`).  
+- `x[0].length` → Gives the number of columns in row `0` (`3`).  
+
+#### **Finding the Total Number of Elements**  
+There is **no direct method** to get the total number of elements in a multidimensional array. However, we can compute it manually by summing the lengths of all rows.
+
+```java
+int totalSize = 0;
+for (int i = 0; i < x.length; i++) {
+    totalSize += x[i].length;  
+}
+
+System.out.println("Total number of elements: " + totalSize); // Output: 18  
+```
+
+- `x.length` gives the number of rows.  
+- `x[i].length` gives the number of columns in row `i`.  
+- The total number of elements in a **jagged array** (where rows may have different lengths) must be computed dynamically using a loop.
+
+---
+
+
+
+### **Anonymous Arrays**  
+
+#### **Definition:**  
+An **anonymous array** is an array **without a name**, created for **instant use** or **one-time usage**.
+
+#### **Purpose of Anonymous Arrays:**  
+- Used when an array is required **only once** and does not need to be stored for later use.  
+- Saves memory by avoiding unnecessary variable allocation.  
+- Commonly used in method arguments where the array is needed only for computation.
+
+---
+
+### **Declaring an Anonymous Array**  
+
+#### **Example: Passing an Anonymous Array to a Method**
+```java
+class Test {
+    public static void main(String[] args) {
+        sum(new int[]{10, 20, 30, 40}); // Anonymous array passed directly
+    }
+
+    public static void sum(int[] x) {
+        int total = 0;
+        for (int num : x) {
+            total += num;
+        }
+        System.out.println("The Sum: " + total); // Output: The Sum: 100
+    }
+}
+```
+**Explanation:**  
+- `new int[]{10, 20, 30, 40}` is an **anonymous array**.  
+- It is created and passed **directly** to the `sum()` method without storing it in a variable.  
+- The `sum()` method calculates the sum of all elements.
+
+---
+
+### **Key Rules for Anonymous Arrays**
+1. **Cannot specify size explicitly:**  
+   ```java
+   new int[4]{10, 20, 30, 40};  // Compile-time error
+   ```
+   - The size is inferred from the number of elements provided.  
+
+2. **Can be used for multidimensional arrays:**  
+   ```java
+   new int[][]{{10, 20}, {30, 40}};  // Valid
+   ```
+
+3. **Losing anonymity by assigning a name:**  
+   ```java
+   int[] x = new int[]{10, 20, 30};  // Now it is no longer anonymous
+   ```
+
+---
+
+### **Use Cases of Anonymous Arrays**
+- **Method arguments for quick computations:**  
+  ```java
+  printArray(new String[]{"Apple", "Banana", "Mango"});
+  ```
+- **Multidimensional matrix operations:**  
+  ```java
+  multiplyMatrix(new int[][]{{1, 2}, {3, 4}});
+  ```
+
+**Important Note:**  
+- Anonymous arrays are mainly used in situations where storing an array is unnecessary.
+
+---
+
+### **Why Use an Anonymous Array?**  
+
+In the previous example, the **`sum` method** requires an array as input. However, after the method execution is complete, we **no longer need** the array.  
+
+For such **one-time use**, an **anonymous array** is the best choice because:  
+- It avoids unnecessary memory allocation.  
+- It eliminates the need to create and store a named array.  
+- It keeps the code clean and efficient.  
+
+#### **Example: Using an Anonymous Array for One-Time Computation**  
+```java
+class Test {
+    public static void main(String[] args) {
+        sum(new int[]{10, 20, 30, 40}); // Anonymous array used directly
+    }
+
+    public static void sum(int[] x) {
+        int total = 0;
+        for (int num : x) {
+            total += num;
+        }
+        System.out.println("The Sum: " + total); // Output: The Sum: 100
+    }
+}
+```
+
+#### **Without an Anonymous Array (Unnecessary Extra Step)**  
+```java
+class Test {
+    public static void main(String[] args) {
+        int[] arr = {10, 20, 30, 40}; // Creating a named array
+        sum(arr); // Passing named array to method
+    }
+
+    public static void sum(int[] x) {
+        int total = 0;
+        for (int num : x) {
+            total += num;
+        }
+        System.out.println("The Sum: " + total);
+    }
+}
+```
+**Drawback:** The named array `arr` **remains in memory** even after its one-time use.
+
+#### **Conclusion:**  
+- If an array is required **only once**, using an **anonymous array** is a better approach.  
+- It helps in writing **concise** and **efficient** code by avoiding unnecessary variables.
+
+---
+
+### **Array Element Assignment Rules**  
+
+#### **Case 1: Primitive Type Arrays**  
+When dealing with **primitive type arrays**, the assigned values must be implicitly **promoted** to the declared type.
+
+##### **Example 1: Assigning Compatible Primitive Values**
+```java
+int[] x = new int[5];
+
+x[0] = 10;   // Integer assigned ✓
+x[1] = 'a';  // Character implicitly promoted to int ✓
+
+byte b = 20;
+x[2] = b;    // Byte implicitly promoted to int ✓
+
+short s = 30;
+x[3] = s;    // Short implicitly promoted to int ✓
+
+x[4] = 10L;  // Error: long cannot be assigned to int (Explicit casting required)
+```
+##### **Key Rule:**  
+For **integer-based arrays** (`byte`, `short`, `char`, `int`), implicit promotion follows this order:
+
+```
+byte → short → int → long → float → double  
+         \  
+          char  
+```
+- **Allowed:** Assigning `byte`, `short`, `char` to `int`, or `int` to `float`.
+- **Not Allowed:** Assigning `long`, `float`, or `double` to `int` without explicit casting.
+
+##### **Example 2: Assigning Values to a `float` Array**
+```java
+float[] f = new float[3];
+
+f[0] = 10;     // int to float ✓
+f[1] = 10.5f;  // float ✓
+f[2] = 'A';    // char to float ✓
+
+f[0] = 10.5;   // Error: double cannot be assigned to float (explicit cast required)
+```
+For **`float[]` arrays**, allowed types are:
+```
+byte → short → char → int → long → float  
+```
+
+---
+
+#### **Case 2: Object Type Arrays**  
+When dealing with **object-type arrays**, assigned values must be of the declared type **or its subclasses**.
+
+##### **Example 3: Assigning Objects to an `Object[]` Array**
+```java
+Object[] a = new Object[3];
+
+a[0] = new Object();       // Object ✓
+a[1] = new String("durga"); // String is a subclass of Object ✓
+a[2] = new Integer(10);    // Integer is a subclass of Object ✓
+```
+- **Allowed:** Any subclass of `Object` can be stored in an `Object[]` array.
+
+##### **Example 4: Assigning Objects to a `Number[]` Array**
+```java
+Number[] n = new Number[3];
+
+n[0] = new Integer(10);  // Integer is a subclass of Number ✓
+n[1] = new Double(10.5); // Double is a subclass of Number ✓
+
+n[2] = new String("durga"); 
+// Error: String is not a subclass of Number
+```
+**Hierarchy:**
+```
+   Number
+  / |  |  |  \
+ Byte Short Int Long Float Double  
+```
+- **Allowed:** Any subclass of `Number` (`Integer`, `Double`, `Byte`, etc.).
+- **Not Allowed:** Non-`Number` types like `String`.
+
+---
+
+### **Case 3: Interface Type Arrays**  
+
+When dealing with **interface type arrays**, the assigned elements must be **instances of a class that implements the interface**.
+
+#### **Example 1: Assigning Implementation Class Objects to an Interface Array**
+```java
+Runnable[] r = new Runnable[10];
+
+r[0] = new Thread();  // Thread implements Runnable ✓
+r[1] = new String("durga");  
+// Error: String does not implement Runnable
+```
+##### **Hierarchy Representation:**  
+```
+Runnable (Interface)  
+       |  
+    Thread (Class)  
+```
+- **Allowed:** Any object of a class that **implements** `Runnable` can be stored in `Runnable[]`.  
+- **Not Allowed:** Objects of classes that do **not** implement `Runnable` (e.g., `String`).  
+
+---
+
+### **Array Type vs. Allowed Element Types**  
+
+| **Array Type**         | **Allowed Element Types** |
+|------------------------|--------------------------|
+| **Primitive Arrays**   | Any type that can be **implicitly promoted** to the declared type. |
+| **Object Type Arrays** | Either the **declared type** or **its child class objects**. |
+| **Abstract Class Type Arrays** | Only objects of **its child classes**. |
+| **Interface Type Arrays** | Only **objects of classes that implement** the interface. |
+
+#### **Examples:**
+##### **1. Primitive Arrays**
+```java
+int[] x = new int[5];
+
+x[0] = 10;       // int (same type) ✓
+x[1] = 'a';      // char (implicitly promoted to int) ✓
+byte b = 20;  
+x[2] = b;        // byte → int (promotion) ✓
+short s = 30;
+x[3] = s;        // short → int (promotion) ✓
+x[4] = 10L;      // long → int (Not allowed, compile-time error)
+```
+
+##### **2. Object Type Arrays**
+```java
+Object[] objArr = new Object[5];
+
+objArr[0] = new Object();      // Object ✓
+objArr[1] = new String("Hi");  // String (child of Object) ✓
+objArr[2] = new Integer(10);   // Integer (child of Object) ✓
+```
+
+##### **3. Abstract Class Type Arrays**
+```java
+abstract class Animal {}
+class Dog extends Animal {}
+class Cat extends Animal {}
+
+Animal[] animals = new Animal[3];
+animals[0] = new Dog();  // ✓ Allowed (Dog is a subclass of Animal)
+animals[1] = new Cat();  // ✓ Allowed (Cat is a subclass of Animal)
+animals[2] = new Animal();  // ✗ Error (Cannot instantiate an abstract class)
+```
+
+##### **4. Interface Type Arrays**
+```java
+interface Runnable {}
+class MyThread implements Runnable {}
+class AnotherThread implements Runnable {}
+
+Runnable[] runArr = new Runnable[2];
+runArr[0] = new MyThread();       // ✓ Allowed
+runArr[1] = new AnotherThread();  // ✓ Allowed
+runArr[2] = new String("Hello");  // ✗ Error (String does not implement Runnable)
+```
+
+---
+
+## **Array Variable Assignments**
+
+#### **Case 1: Element-Level Promotions Not Applicable at Array Level**  
+
+- Example: A `char` element can be promoted to an `int` type, but a `char[]` array cannot be promoted to an `int[]` array.
+
+```java
+int[] x = {10, 20, 30, 40};
+char[] ch = {'a', 'b', 'c'};
+
+int[] b = x;   // Valid
+int[] c = ch;  // Invalid: CE (Compilation Error) - incompatible types
+```
+
+#### **Question:**  
+Which of the following promotions will be performed automatically?  
+
+| Promotion         | Validity  |
+|------------------|----------|
+| `char → int`     | Valid    |
+| `String → Object` | Valid    |
+| `String[] → Object[]` | Valid    |
+| `char[] → int[]` | Invalid  |
+| `int → double` | Valid    |
+| `int[] → double[]` | Invalid  |
+| `float → int` | Invalid  |
+| `float[] → int[]` | Invalid  |
+
+#### **Object Type Arrays: Child Class Arrays Can Be Promoted to Parent Class Arrays**  
+
+```java
+String[] A = {"A", "B", "C"};
+Object[] a = A;  // Valid
+```
+
+---
+
+#### **Case 2: Array Assignment Copies Only References, Not Elements**  
+
+```java
+int[] a = {10, 20, 30, 40, 50, 60};
+int[] b = {70, 80};
+
+a = b; // 'a' now references the array {70, 80}
+b = a; // 'b' now references the array {70, 80}
+```
+
+> **Note:** When one array is assigned to another, the internal elements are not copied—only the reference variable is reassigned.
+
+---
+
+#### **Case 3: Array Dimensions Must Match**  
+
+- If we try to assign a different dimension, a **compilation error** will occur.
+
+```java
+int[][] a = new int[3][];
+
+// Invalid assignments
+a[0] = new int[3][2];  // CE: Incompatible types
+a[0] = 10;             // CE: Incompatible types
+
+// Valid assignment
+a[0] = new int[2]; 
+```
+
+> **Rule:** Both dimensions and types must match, but sizes do not have to match.
+
+---
+
+### **Command-Line Arguments Example**  
+
+```java
+class Test {  
+    public static void main(String[] args) {  
+        for (int i = 0; i < args.length; i++) {  
+            System.out.println(args[i]);  
+        }  
+    }  
+}  
+```
+
+#### **Compilation and Execution Commands:**  
+
+```sh
+javac Test.java  
+java Test A B C  
+```
+
+**Output:**  
+```
+A  
+B  
+C  
+```
+
+```sh
+java Test A B  
+```
+**Output:**  
+```
+A  
+B  
+```
+
+```sh
+java Test  
+```
+**Output:** (No output, as no arguments were passed)
+```
