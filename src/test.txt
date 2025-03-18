@@ -1,4 +1,8 @@
 
 
+Arithmatic operators
+`````````````````````
 
-onces we carete an arry every array element by default initilize with defalut values irrespectvie of where it is instacne , or static  or local 
+
+if we apply any arithmatic oprtaor betwen two varibles a and b the result type is always max(int, type of a, type of b)
+
