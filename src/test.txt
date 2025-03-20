@@ -1,8 +1,10 @@
 
 
-Arithmatic operators
-`````````````````````
+Difference b/w == operator & equal() method:  
+if genral we can use == operator for referecne comparsion(address comparsion) and .equals() for content comparsion
 
 
-if we apply any arithmatic oprtaor betwen two varibles a and b the result type is always max(int, type of a, type of b)
-
+String s1 = new String("durga");  
+String s2 = new String("durga");  
+Sop(in(s1 == s2);   
+Sop(in(s1.equals(s2));  
