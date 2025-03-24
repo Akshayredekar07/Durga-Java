@@ -1,0 +1,51 @@
+
+operator precedence in java
+
+
+1. Unary operators:  
+   [ ], x++, x--  
+   ++x, --x, ~, !  
+   new, <type>
+
+2. Arithmetic operators:  
+   *, /, %  
+   +, -
+
+3. Shift operators:  
+   >>, >>>, <<
+
+4. Comparison operators:  
+   <, <=, >, >=, instanceof
+
+5. equality operators:  
+   ==, !=
+
+6. Bitwise operators:  
+   &  
+   ^  
+   |
+
+7. Short circuit operators:  
+   &&  
+   ||
+
+8. Conditional operator
+
+### Text from the Image:
+
+7. Short circuit operators:  
+   &&  
+   ||
+
+8. Conditional operator  
+   ?:
+
+9. Assignment operators:  
+   =, +=, -=, *= .........
+
+---
+
+
+- in java we have only operator precedence,but not operand precedence.
+- before applying any operator all operand will be evalueated from left to right.
+

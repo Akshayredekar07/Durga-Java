@@ -516,3 +516,273 @@ public class Test {
 **Explanation:** The ternary operator can be used inside `System.out.println()` directly.
 
 ---
+
+## **Operators precedence**
+
+- In Java, we have only **operator precedence**, but not operand precedence.
+- Before applying any operator, all operands will be evaluated from **left to right**.
+
+### 1. Operator Precedence in Java
+- Java follows a strict **operator precedence** rules to determine the order in which operators are applied in an expression.
+- For example, in the expression `a + b * c`, the multiplication (`*`) has higher precedence than addition (`+`), so `b * c` is evaluated first, and then the result is added to `a`.
+- Java does **not** have operand precedence, meaning the operands themselves (e.g., `a`, `b`, `c`) do not have an inherent priority based on their position or type. The precedence is determined solely by the operators.
+
+#### Example of Operator Precedence:
+```java
+int a = 2, b = 3, c = 4;
+int result = a + b * c; // Multiplication (*) has higher precedence than addition (+)
+System.out.println(result); // Output: 14 (because 3 * 4 = 12, then 2 + 12 = 14)
+```
+
+### 2. Operand Evaluation Order (Left to Right)
+- In Java, before any operator is applied, all operands in an expression are evaluated from **left to right**.
+- This means that if an operand involves a method call, a variable, or a sub-expression, Java will evaluate each operand in the order they appear (from left to right) before applying the operators according to their precedence.
+
+#### Example of Operand Evaluation:
+Consider the following code:
+```java
+class Test {
+    public static void main(String[] args) {
+        System.out.println(m1(2) * m1(3) / m1(1) + m1(2) * m1(3) * m1(6));
+    }
+
+    public static int m1(int i) {
+        System.out.println(i);
+        return i;
+    }
+}
+```
+
+**Expression:** `m1(2) * m1(3) / m1(1) + m1(2) * m1(3) * m1(6)`
+
+- **Operand Evaluation (Left to Right):**
+  - Java evaluates each operand (i.e., each `m1` call) from left to right before applying the operators.
+  - First part: `m1(2) * m1(3) / m1(1)`
+    - Evaluates `m1(2)` → prints `2`, returns `2`.
+    - Evaluates `m1(3)` → prints `3`, returns `3`.
+    - Evaluates `m1(1)` → prints `1`, returns `1`.
+  - Second part: `m1(2) * m1(3) * m1(6)`
+    - Evaluates `m1(2)` → prints `2`, returns `2`.
+    - Evaluates `m1(3)` → prints `3`, returns `3`.
+    - Evaluates `m1(6)` → prints `6`, returns `6`.
+
+- **Output from Operand Evaluation:**
+  ```
+  2
+  3
+  1
+  2
+  3
+  6
+  ```
+
+- **Apply Operators (Using Precedence):**
+  - After evaluating all operands, Java applies the operators based on their precedence.
+  - Multiplication (`*`) and division (`/`) have higher precedence than addition (`+`), and they are evaluated from left to right.
+  - First part: `2 * 3 / 1 = 6 / 1 = 6`
+  - Second part: `2 * 3 * 6 = 6 * 6 = 36`
+  - Combine: `6 + 36 = 42`
+
+- **Final Output:**
+  ```
+  2
+  3
+  1
+  2
+  3
+  6
+  42
+  ```
+---
+
+1. **Unary Operators:**  
+   - `[ ]` (array indexing)  
+   - `x++` (post-increment)  
+   - `x--` (post-decrement)  
+   - `++x` (pre-increment)  
+   - `--x` (pre-decrement)  
+   - `~` (bitwise NOT)  
+   - `!` (logical NOT)  
+   - `new` (object creation)  
+   - `<type>` (type casting)
+
+2. **Arithmetic Operators:**  
+   - `*` (multiplication)  
+   - `/` (division)  
+   - `%` (modulus)  
+   - `+` (addition)  
+   - `-` (subtraction)
+
+3. **Shift Operators:**  
+   - `>>` (right shift)  
+   - `>>>` (unsigned right shift)  
+   - `<<` (left shift)
+
+4. **Comparison Operators:**  
+   - `<` (less than)  
+   - `<=` (less than or equal to)  
+   - `>` (greater than)  
+   - `>=` (greater than or equal to)  
+   - `instanceof` (type comparison)
+
+5. **Equality Operators:**  
+   - `==` (equal to)  
+   - `!=` (not equal to)
+
+6. **Bitwise Operators:**  
+   - `&` (bitwise AND)  
+   - `^` (bitwise XOR)  
+   - `|` (bitwise OR)
+
+7. **Short Circuit Operators:**  
+   - `&&` (logical AND, short-circuit)  
+   - `||` (logical OR, short-circuit)
+
+8. **Conditional Operator:**  
+   - `?:` (ternary operator, e.g., `condition ? value1 : value2`)
+
+9. **Assignment Operators:**  
+   - `=` (simple assignment)  
+   - `+=` (add and assign)  
+   - `-=` (subtract and assign)  
+   - `*=` (multiply and assign)  
+   - `/=`, `%=`, `&=`, `|=`, `^=`, `<<=`, `>>=`, `>>>=`
+
+---
+
+
+### 1. **Bitwise NOT (`~`)**
+- **What it does:** The `~` operator is a **unary bitwise operator** that inverts all the bits of its operand. It works on integer types (`int`, `long`, `short`, `byte`).
+- **How it works:** For each bit in the number, `~` flips it:
+  - `0` becomes `1`.
+  - `1` becomes `0`.
+- **Operand type:** Integer types (e.g., `int`, `long`). The result is also an integer.
+- **Effect on the number:** For a number `x`, the `~x` operation is equivalent to `-(x + 1)` due to how numbers are represented in two's complement form in Java.
+
+#### Example of `~`:
+Let’s take the number `5` (an `int` in Java):
+- Binary representation of `5` (32-bit `int`):  
+  `00000000 00000000 00000000 00000101`
+- Apply `~5`: Flip all bits:  
+  `11111111 11111111 11111111 11111010`
+- This binary number is the two's complement representation of `-6`.  
+  (To understand why: `~5` = `-(5 + 1)` = `-6`.)
+
+**Code Example:**
+```java
+int x = 5;
+System.out.println(~x); // Output: -6
+```
+
+- Another example with `0`:  
+  - `0` in binary: `00000000 00000000 00000000 00000000`
+  - `~0`: `11111111 11111111 11111111 11111111`, which is `-1`.  
+  So, `~0` = `-1`.
+
+---
+
+### 2. **Logical NOT (`!`)**
+- **What it does:** The `!` operator is a **unary logical operator** that negates a boolean value. It works on boolean expressions or values.
+- **How it works:** It flips the truth value:
+  - `true` becomes `false`.
+  - `false` becomes `true`.
+- **Operand type:** `boolean`. The result is also a `boolean`.
+- **Use case:** Typically used in conditional statements or logical expressions to invert a condition.
+
+#### Example of `!`:
+- If a variable `flag` is `true`, then `!flag` is `false`.
+- If `flag` is `false`, then `!flag` is `true`.
+
+**Code Example:**
+```java
+boolean flag = true;
+System.out.println(!flag); // Output: false
+
+flag = false;
+System.out.println(!flag); // Output: true
+```
+
+- Another example with a condition:  
+  ```java
+  int x = 10;
+  boolean isPositive = x > 0; // true
+  System.out.println(!isPositive); // Output: false
+  ```
+
+---
+
+### Key Differences Between `~` and `!`
+
+| **Aspect**            | **Bitwise NOT (`~`)**                          | **Logical NOT (`!`)**                          |
+|-----------------------|-----------------------------------------------|-----------------------------------------------|
+| **Type of Operator**  | Bitwise (operates on bits)                   | Logical (operates on truth values)            |
+| **Operand Type**      | Integer types (`int`, `long`, `short`, `byte`) | `boolean`                                     |
+| **Result Type**       | Same as the operand (e.g., `int`)            | `boolean`                                     |
+| **Operation**         | Inverts all bits (0 → 1, 1 → 0)              | Inverts the boolean value (`true` → `false`, `false` → `true`) |
+| **Use Case**          | Manipulating bits in numbers (e.g., in low-level programming) | Controlling logic in conditionals (e.g., `if` statements) |
+| **Example**           | `~5` = `-6` (flips bits of 5)                | `!true` = `false` (negates the boolean)       |
+
+---
+
+### Common Mistake to Avoid
+- **Using `~` on a boolean:** This will cause a compilation error in Java because `~` is not defined for `boolean` types.
+  ```java
+  boolean b = true;
+  System.out.println(~b); // Compilation error: "operator ~ cannot be applied to boolean"
+  ```
+- **Using `!` on an integer:** Similarly, this will cause a compilation error because `!` is not defined for integer types.
+  ```java
+  int x = 5;
+  System.out.println(!x); // Compilation error: "operator ! cannot be applied to int"
+  ```
+
+---
+
+### Practical Use Cases
+- **`~` (Bitwise NOT):**
+  - Used in low-level programming, such as bit manipulation, flags, or masks.
+  - Example: Inverting a bitmask to select all bits except certain ones.
+    ```java
+    int mask = 5; // 00000101
+    int invertedMask = ~mask; // 11111010
+    ```
+
+- **`!` (Logical NOT):**
+  - Used in control flow to negate conditions.
+  - Example: Checking if a condition is not true.
+    ```java
+    if (!(x > 0)) {
+        System.out.println("x is not positive");
+    }
+    ```
+
+---
+
+The `~` (bitwise NOT) operator inverts all bits of an integer, while the `!` (logical NOT) operator inverts a boolean value. They differ in their operand types (`~` for integers, `!` for booleans), their operation (bit flipping vs. logical negation), and their use cases (bit manipulation vs. logical control).
+
+---
+
+
+```java
+class Test {
+    public static void main(String[] args) {
+        int a = 5, b = 3, c = 2;
+        boolean x = true, y = false;
+        
+        System.out.println((a + b * c) > (a - b / c) ^ (a & b) != 0 ? !(x && y) || (c < b) : a * b + c);
+    }
+}
+```
+
+```java
+class Test {
+    public static void main(String[] args) {
+        System.out.println((m1(1) + m1(2) * m1(3)) > (m1(4) / m1(5)) && !((m1(6) & m1(7)) == 0) || m1(8) < m1(9));
+    }
+
+    public static int m1(int i) {
+        System.out.println(i);
+        return i;
+    }
+}
+```
